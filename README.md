@@ -10,10 +10,13 @@ Copyright 2015-2019
 
 lib_raytrace is a C++ library and command-line utility for acoustic ray-tracing. It is based on MATLAB code written by Val, which uses the gradient-based approximation to Snell's law, and coded in C++ by Eric (as a high-school student) during a 2015 summer internship at the Center. 
 
+Install cppimport: `pip install cppimport`
+
 To build try the following:
 
     git clone lib_raytrace
     cd lib_raytrace
+    git submodule update --init
     mkdir build
     cd build
     cmake ../
@@ -51,6 +54,8 @@ Here `depths_svp.txt` is space delimited text file with two columns of depth (m)
 The results consist of a table (one for each raytrace of input angle/travel time pair), in which the first two columns provide the horizontal and vertical coordinates of each step along the traced ray, the third column gives the cumulative distance traveled and fourth gives the cumulative one-way travel time. The number of entries in the table is equal to the number of entries in the input sound speed profile.
 
 
-
+The `cppimport` and `pybind11` allows to  call cpp-implemented function using python. See `lib/test_ssp.py` as an example.
 
 > Written with [StackEdit](https://stackedit.io/).
+
+

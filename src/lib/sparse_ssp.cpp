@@ -5,6 +5,12 @@
 //  Created by Eric Keilty on 8/4/15.
 //  Copyright (c) 2015 Assembly. All rights reserved.
 //
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/complex.h>
+#include <pybind11/functional.h>
+#include <pybind11/chrono.h>
+namespace py = pybind11;
 
 #include "sparse_ssp.h"
 
@@ -329,3 +335,19 @@ vector< vector<double> > sparsed_ssp::raytrace(double z0, double x0, double thet
     
     return outputs; //[ [x1, x2, ...], [z1, z2, ...], [ddd1, ddd2, ...], [ttt1, ttt2, ...] ]
 }
+
+
+PYBIND11_MODULE(sparse_ssp, m) {
+    
+
+    // class_ is used for class/struct
+    auto cls1 = py::class_<sparsed_ssp>(m, "sparsed_ssp");
+    cls1.def(py::init<vector<double> , vector<double> >())
+       .def("raytrace", &sparsed_ssp::raytrace, "sparsed_ssp::raytrace");
+
+}
+
+<%
+cfg['dependencies'] = ['sparse_ssp.h']
+setup_pybind11(cfg)
+%>

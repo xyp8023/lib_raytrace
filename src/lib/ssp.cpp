@@ -5,6 +5,12 @@
 //  Created by Eric Keilty on 7/10/15.
 //  Copyright (c) 2015 Assembly. All rights reserved.
 //
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/complex.h>
+#include <pybind11/functional.h>
+#include <pybind11/chrono.h>
+namespace py = pybind11;
 
 #include "ssp.h"
 
@@ -45,6 +51,7 @@
 //ddd = vector of all the d's
 
 //gradient = vector of the gradient of the sound speed
+
 
 
 vector< vector<double> > ssp::raytrace(double z0, double x0, double theta0, double owtt)
@@ -345,3 +352,21 @@ vector< vector<double> > ssp::raytrace_angle( vector<double> theta, vector<doubl
     
     return outputs; //[ [x1, x2, ...], [z1, z2, ...] ]
 }
+
+// https://github.com/charstorm/examples4pybind11/blob/main/e03_struct_class/example.cpp
+PYBIND11_MODULE(ssp, m) {
+    
+
+    // class_ is used for class/struct
+    auto cls1 = py::class_<ssp>(m, "ssp");
+    cls1.def(py::init<vector<double> , vector<double> >())
+       .def("raytrace", &ssp::raytrace, "ssp::raytrace")
+       .def("raytrace_simple", &ssp::raytrace_simple, "ssp::raytrace_simple")
+       .def("raytrace_angle", &ssp::raytrace_angle, "ssp::raytrace_angle");
+
+}
+
+<%
+cfg['dependencies'] = ['ssp.h']
+setup_pybind11(cfg)
+%>

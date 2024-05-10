@@ -1,6 +1,6 @@
 # \file CMakeLists.txt
 # \brief Top-level CMake configuration
-# \author: Eric Keilty
+# \author: Eric Keilty, Yiping Xie
 
 #Version needed to run
 cmake_minimum_required( VERSION 3.0.0 )
@@ -30,8 +30,14 @@ cmake_minimum_required( VERSION 3.0.0 )
 #name it the name of the folder that this is inside of
 project ( Template_project )
 
+set(CMAKE_CXX_STANDARD 11)
 
-
+find_package(PythonInterp REQUIRED)
+find_package(PythonLibs "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}" REQUIRED )
+if (PYTHONLIBS_FOUND)
+    include_directories(${PYTHON_INCLUDE_DIRS})
+    message("Using default python version: " ${PYTHONLIBS_VERSION_STRING})
+endif()
 
 # Including directories
 include_directories( 	${CMAKE_SOURCE_DIR}/src/lib
@@ -40,7 +46,9 @@ include_directories( 	${CMAKE_SOURCE_DIR}/src/lib
 
 #include( cmake/ShowSummary.cmake )
 
-
+add_subdirectory(src/pybind11)
+include_directories(SYSTEM src/pybind11/include)
+include_directories(SYSTEM src/eigen)
 
 #adding 'src' as a directory
 add_subdirectory( src )
