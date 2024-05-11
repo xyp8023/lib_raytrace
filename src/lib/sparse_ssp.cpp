@@ -347,7 +347,9 @@ PYBIND11_MODULE(sparse_ssp, m) {
 
 }
 
+/*
 <%
 cfg['dependencies'] = ['sparse_ssp.h']
 setup_pybind11(cfg)
 %>
+*/

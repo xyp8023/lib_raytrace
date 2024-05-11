@@ -366,7 +366,9 @@ PYBIND11_MODULE(data_ssp, m) {
 
 }
 
+/*
 <%
 cfg['dependencies'] = ['data_ssp.h']
 setup_pybind11(cfg)
 %>
+*/

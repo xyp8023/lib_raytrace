@@ -279,7 +279,9 @@ PYBIND11_MODULE(regular_ssp, m) {
 
 }
 
+/*
 <%
 cfg['dependencies'] = ['regular_ssp.h']
 setup_pybind11(cfg)
 %>
+*/
